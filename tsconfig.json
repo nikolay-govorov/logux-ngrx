@@ -1,0 +1,37 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2015",
+    "declaration": true,
+    "inlineSources": true,
+    "types": [],
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "paths": {
+      "logux-ngrx": [
+        "dist/logux-ngrx"
+      ]
+    }
+  },
+  "angularCompilerOptions": {
+    "enableIvy": false,
+    "skipTemplateCodegen": true,
+    "fullTemplateTypeCheck": true,
+    "strictMetadataEmit": true,
+    "strictInjectionParameters": true,
+    "enableResourceInlining": true
+  },
+  "exclude": [
+    "**/*.spec.ts"
+  ]
+}
