@@ -1,0 +1,19 @@
+{
+  "name": "logux-ngrx",
+  "version": "0.0.0",
+  "description": "NgRx compatible API for Logux",
+  "keywords": [
+    "logux",
+    "client",
+    "angular",
+    "ngrx"
+  ],
+  "scripts": {
+    "test": "exit 0"
+  },
+  "author": "Nikolay Govorov <nikolay_govorov@bk.ru>",
+  "license": "MIT",
+  "homepage": "https://logux.io/",
+  "repository": "nikolay-govorov/logux-ngrx",
+  "sideEffects": false
+}
