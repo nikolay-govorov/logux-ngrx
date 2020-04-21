@@ -1,4 +1,10 @@
-import { Inject, Injectable, InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+  InjectionToken,
+  ModuleWithProviders,
+  NgModule
+} from '@angular/core'
 import {
   Action,
   ActionReducerMap,
@@ -9,25 +15,29 @@ import {
   StateObservable,
   ActionsSubject,
   ReducerManager
-} from "@ngrx/store";
+} from '@ngrx/store'
 import { ClientOptions, CrossTabClient } from '@logux/client'
 
-const PROVIDER_CLEAN_EVERY = "cleanEvery";
-const PROVIDER_REASONLESS_HISTORY = "reasonlessHistory";
-const PROVIDER_SAVE_STATE_EVERY = "saveStateEvery";
-const PROVIDER_ON_MISSED_HISTORY = "onMissedHistory";
-const PROVIDER_LOGUX_CLIENT = "loguxClient";
+const PROVIDER_CLEAN_EVERY = 'cleanEvery'
+const PROVIDER_REASONLESS_HISTORY = 'reasonlessHistory'
+const PROVIDER_SAVE_STATE_EVERY = 'saveStateEvery'
+const PROVIDER_ON_MISSED_HISTORY = 'onMissedHistory'
+const PROVIDER_LOGUX_CLIENT = 'loguxClient'
 
 @Injectable()
 export class LoguxNgRxStore<T = object> extends Store<T> {
-  constructor(
+  constructor (
     @Inject(PROVIDER_CLEAN_EVERY) private cleanEvery: number,
-    state$: StateObservable, actionsObserver: ActionsSubject, reducerManager: ReducerManager
+    state$: StateObservable,
+    actionsObserver: ActionsSubject,
+    reducerManager: ReducerManager
   ) {
-    super(state$, actionsObserver, reducerManager);
+    super(state$, actionsObserver, reducerManager)
+
+    console.log(cleanEvery)
   }
 
-  dispatch<V extends Action = Action>(action) {
+  dispatch<V extends Action = Action> (action) {
     super.dispatch(action)
   }
 }
@@ -58,7 +68,7 @@ type LoguxNgRxConfig = ClientOptions & {
 
 @NgModule({})
 export class LoguxNgrxModule {
-  static forRoot<T, V extends Action = Action>(
+  static forRoot<T, V extends Action = Action> (
     clientConfig: LoguxNgRxConfig,
     reducers:
       | ActionReducerMap<T, V>
@@ -74,11 +84,11 @@ export class LoguxNgrxModule {
     let onMissedHistory = clientConfig.onMissedHistory
     delete clientConfig.onMissedHistory
 
-    let module = StoreModule.forRoot<T>(reducers, config);
-    let client = new CrossTabClient(clientConfig);
+    let module = StoreModule.forRoot<T>(reducers, config)
+    let client = new CrossTabClient(clientConfig)
 
     if (!module.providers) {
-      module.providers = [];
+      module.providers = []
     }
 
     module.providers.push(
@@ -91,8 +101,8 @@ export class LoguxNgrxModule {
         useValue: client
       },
       [LoguxNgRxStore]
-    );
+    )
 
-    return module;
+    return module
   }
 }

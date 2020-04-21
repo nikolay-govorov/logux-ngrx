@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "build": "ng build",
-    "test": "jest-ci --coverage && eslint-ci . && check-dts && size-limit && yarn spell",
+    "test": "jest-ci --coverage && eslint-ci . && ng lint && size-limit && yarn spell",
     "spell": "yaspeller-ci *.md",
     "clean": "rimraf coverage/"
   },
@@ -22,12 +22,17 @@
   "peerDependencies": {
     "@angular/common": "^9.1.1",
     "@angular/core": "^9.1.1",
-    "tslib": "^1.10.0",
-    "@ngrx/store": "^9.1.0"
+    "@ngrx/store": "^9.1.0",
+    "tslib": "^1.10.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.901.1",
     "@angular-devkit/build-ng-packagr": "~0.901.1",
+    "@angular-eslint/builder": "0.0.1-alpha.28",
+    "@angular-eslint/eslint-plugin": "0.0.1-alpha.28",
+    "@angular-eslint/eslint-plugin-template": "0.0.1-alpha.28",
+    "@angular-eslint/schematics": "^0.0.1-alpha.28",
+    "@angular-eslint/template-parser": "0.0.1-alpha.28",
     "@angular/animations": "~9.1.1",
     "@angular/cli": "~9.1.1",
     "@angular/common": "~9.1.1",
@@ -43,11 +48,13 @@
     "@logux/eslint-config": "^36.1.1",
     "@logux/sharec-config": "^0.6.2",
     "@ngrx/store": "^9.1.0",
-    "@size-limit/dual-publish": "^4.3.1",
     "@size-limit/preset-small-lib": "^4.3.1",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
+    "@types/jest": "^25.2.1",
     "@types/node": "^12.11.1",
+    "@typescript-eslint/eslint-plugin": "^2.29.0",
+    "@typescript-eslint/parser": "^2.29.0",
     "check-dts": "^0.1.3",
     "codelyzer": "^5.1.2",
     "dual-publish": "^0.5.1",
@@ -65,8 +72,9 @@
     "husky": "^4.2.3",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
-    "jest": "^25.1.0",
+    "jest": "^25.4.0",
     "jest-ci": "^0.1.1",
+    "jest-preset-angular": "^8.1.3",
     "karma": "~4.4.1",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage-istanbul-reporter": "~2.1.0",
@@ -95,23 +103,39 @@
     "*.js": "eslint"
   },
   "jest": {
+    "preset": "jest-preset-angular",
     "testEnvironment": "node",
     "coverageThreshold": {
       "global": {
         "statements": 100
       }
+    },
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "<rootDir>/tsconfig.json"
+      }
     }
-  },
-  "eslintConfig": {
-    "extends": "@logux/eslint-config"
   },
   "yaspeller": {
     "lang": "en",
     "ignoreCapitalization": true,
     "ignoreText": [
       " \\(by [^)]+\\)."
+    ],
+    "dictionary": [
+      "logux",
+      "ngrx"
     ]
   },
+  "size-limit": [
+    {
+      "limit": "10 KB",
+      "path": [
+        "dist/logux-ngrx/{fesm2015,fesm5,esm2015,esm5}/logux-ngrx.js",
+        "dist/logux-ngrx/bundled/logux-ngrx.umd.min.js"
+      ]
+    }
+  ],
   "sharec": {
     "config": "@logux/sharec-config",
     "version": "0.6.2"

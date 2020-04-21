@@ -1,2 +1,2 @@
-# logux-ngrx
-NgRx compatible API for Logux
+# @logux-ngrx
+Ngrx compatible API for Logux
